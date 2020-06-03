@@ -6,7 +6,7 @@ LOAD_BALANCER_PORT_FILE = '../ex3_lb/cmake-build-debug/server_port'
 RECEIVE_BUFFER_SIZE = 1024
 MESSAGE_END = '\r\n\r\n'
 LINE_END = '\r\n'
-ERROR_404_MESSAGE = 'HTTP/1.1 404 Not Found\r\nContent-type: text/html\r\nContent-length: 113\r\n<html><head><title>Not Found</title></head><body>\r\nSorry, the object you requested was not found.\r\n</body></html>\r\n\r\n\r\n\r\n'
+ERROR_404_MESSAGE = 'HTTP/1.1 404 Not Found\r\nContent-type: text/html\r\nContent-length: 113\r\n\r\n<html><head><title>Not Found</title></head><body>\r\nSorry, the object you requested was not found.\r\n</body></html>\r\n\r\n'
 
 
 def get_lb_port(lb_port_filename: str = LOAD_BALANCER_PORT_FILE) -> int:
@@ -60,7 +60,7 @@ def main():
         while not received_all:
             chunk = lb_socket.recv(RECEIVE_BUFFER_SIZE)
             print(f'Got chunk: {chunk}')
-            if chunk == '':
+            if len(chunk) == 0:
                 raise RuntimeError('socket connection broken')
 
             chunks.append(chunk)
