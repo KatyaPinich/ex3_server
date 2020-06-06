@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from socket import socket
 
@@ -11,7 +10,6 @@ ERROR_404_MESSAGE = 'HTTP/1.1 404 Not Found\r\nContent-type: text/html\r\nConten
 
 def get_lb_port(lb_port_filename: str = LOAD_BALANCER_PORT_FILE) -> int:
     lb_port_filepath = Path.cwd().joinpath(lb_port_filename)
-    #with open(LOAD_BALANCER_PORT_FILE, 'r') as lb_port_file:
     with lb_port_filepath.open('r') as lb_port_file:
         port = int(lb_port_file.readline())
 
@@ -56,7 +54,6 @@ def main():
         received_all = False
         chunks = []
         bytes_received = 0
- #       with lb_socket:
         while not received_all:
             chunk = lb_socket.recv(RECEIVE_BUFFER_SIZE)
             print(f'Got chunk: {chunk}')
