@@ -1,4 +1,4 @@
-#!/usr/bin/python -tt
+#!/usr/bin/python3 -tt
 
 from pathlib import Path
 from socket import socket
@@ -46,7 +46,6 @@ def main():
     lb_port = get_lb_port(LOAD_BALANCER_PORT_FILE)
 
     lb_socket = socket()
-    print(f'Connecting to server on port {lb_port}')
 
     lb_socket.connect(('localhost', lb_port))
 
@@ -58,7 +57,6 @@ def main():
         bytes_received = 0
         while not received_all:
             chunk = lb_socket.recv(RECEIVE_BUFFER_SIZE)
-            print(f'Got chunk: {chunk}')
             if len(chunk) == 0:
                 raise RuntimeError('socket connection broken')
 
@@ -69,7 +67,6 @@ def main():
             if message.endswith(MESSAGE_END):
                 received_all = True
 
-        print(message)
         if is_count_address(message) and is_get_request(message):
             count_requests = count_requests + 1
             content_length = len(str(count_requests))
