@@ -1,3 +1,5 @@
+#!/usr/bin/python -tt
+
 from pathlib import Path
 from socket import socket
 
