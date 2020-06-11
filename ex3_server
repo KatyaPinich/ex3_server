@@ -92,8 +92,7 @@ def recieve_message(lb_socket: socket) -> str:
         message = ''.join([x.decode('latin-1') for x in chunks])
         if message.endswith(HTTP_MESSAGE_END):
             received_all = True
-
-    print(message)
+            
     return message
 
 
